@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--This is the stylesheet link -->
+  <link rel="stylesheet" href="./style.css">
+  <title>Tic Tac Toe</title>
+</head>
+<body>
+  <section class="welcome-sec">
+    <p>Welcome <br> To</p>
+    <h2>TIC TAC TOE</h2>
+    <button id="playBtn">Play</button>
+  </section>
+  <section class="seclet-player" style="display: none;">
+    <h2>How Many Players Do You Want In The Game?</h2>
+    <div>
+      <button id="onePlayer">One Player</button>
+      <button id="twoPlayers">Two Players</button>
+    </div>
+  </section>
+  <section class="playing-as" style="display: none;">
+    <h2>Who Do You Want To Play As?</h2>
+    <div>
+      <input id="playerX" type="button" value="X">
+      <input id="PlayerO" type="button" value="O">
+    </div>
+      <button id="numOfPlayerC">CHANGE NUMBER OF PLAYER</button>
+  </section>
+  <section class="game-board" style="display: none;">
+    <div class="players-score">
+      <p>Player:1 <span id="player1Score">0</span></p>
+      <p>Player:2 <span id="player2Score">0</span></p>
+    </div>
+    <main>
+      <div id="1" class="all-btn" ></div>
+      <div id="2" class="all-btn" ></div>
+      <div id="3" class="all-btn" ></div>
+      <div id="4" class="all-btn" ></div>
+      <div id="5" class="all-btn" ></div>
+      <div id="6" class="all-btn" ></div>
+      <div id="7" class="all-btn" ></div>
+      <div id="8" class="all-btn" ></div>
+      <div id="9" class="all-btn" ></div>
+    </main>
+    <button id="restartGameBtn">Restart Game</button>
+  </section>
+
+
+<!--This is the script link -->
+  <script src="./script.js"></script>
+</body>
+</html>
