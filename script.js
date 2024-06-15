@@ -9,11 +9,16 @@ let playerX = document.getElementById("playerX");
 let PlayerO = document.getElementById("PlayerO");
 let gamneBoard = document.querySelector(".game-board");
 
-//Getting the al of the nine btn on the game board
+//Getting the all of the nine btn on the game board
 let allGameBtn = document.querySelectorAll(".all-btn");
-allGameBtn.forEach( function (allGameBtn){
-  allGameBtn.innerHTML = playerX.value;
-});
+
+// for (let index = 0; index < allGameBtn.length; index++) {
+//   let currentBtn = allGameBtn[index];
+//   currentBtn.addEventListener("click", (e) => {
+//     // e.target.innerHTML = "Hey";
+//     e.target.innerText = "h";
+//   })
+// }
 
 let btn1 = document.getElementById("1");
 let btn2 = document.getElementById("2");
@@ -49,7 +54,14 @@ twoPlayers.addEventListener("click", (e) => {
 playerX.addEventListener("click", (e) => {
   playingAs.style.setProperty("display", "none");
   gamneBoard.style.removeProperty("display", "none");
-  console.log(playerX.value)
+  let playIdentityX = (playerX.value);
+  for (let index = 0; index < allGameBtn.length; index++) {
+    let currentBtn = allGameBtn[index];
+    currentBtn.addEventListener("click", (e) => {
+      // e.target.innerHTML = "Hey";
+      e.target.innerText = playIdentityX;
+    })
+  }
   
 })
 
@@ -57,8 +69,15 @@ playerX.addEventListener("click", (e) => {
 PlayerO.addEventListener("click", (e) => {
   playingAs.style.setProperty("display", "none");
   gamneBoard.style.removeProperty("display", "none");
-  console.log(PlayerO.value)
-})
+  let playIdentityO = (PlayerO.value);
+  for (let index = 0; index < allGameBtn.length; index++) {
+    let currentBtn = allGameBtn[index];
+    currentBtn.addEventListener("click", (e) => {
+      // e.target.innerHTML = "Hey";
+      e.target.innerHTML = playIdentityO;
+    })
+  }
 
+})
 
 

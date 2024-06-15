@@ -160,6 +160,12 @@ main{
 main div{
   background: #ffffff;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 3.5rem;
+  color: #77a;
 }
 
 #restartGameBtn{
