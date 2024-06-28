@@ -79,6 +79,8 @@ function handlePlayerMove(event) {
   gameState[clickedBtnIndex] = currentPlayer;
   clickedBtn.innerText = currentPlayer;
 
+
+
   if (checkWin()) {
     gameActive = false;
     updateScore();
@@ -93,7 +95,7 @@ function handlePlayerMove(event) {
   currentPlayer = currentPlayer === "X" ? "O" : "X";
 
   if (isOnePlayer && gameActive) {
-    handleComputerMove();
+    setTimeout(handleComputerMove, 1000);
   }
 }
 
@@ -149,5 +151,6 @@ restartGameBtn.addEventListener("click", () => {
   }
   
 });
+
 
 
