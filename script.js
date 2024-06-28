@@ -147,58 +147,7 @@ restartGameBtn.addEventListener("click", () => {
   for (let btn of allGameBtn) {
     btn.innerText = ""; // Clear any existing text
   }
-  currentPlayer = currentPlayer === "X" ? "O" : "X"; // Optional: switch starting player
+  
 });
-
-
-// // Getting elements from the HTML
-// let playBtn = document.getElementById("playBtn");
-// let selectPlayerSec = document.querySelector(".seclet-player");
-// let welcomeSec = document.querySelector(".welcome-sec");
-// let onePlayer = document.getElementById("onePlayer");
-// let twoPlayers = document.getElementById("twoPlayers");
-// let playingAs = document.querySelector(".playing-as");
-// let playerX = document.getElementById("playerX");
-// let playerO = document.getElementById("PlayerO");
-// let gameBoard = document.querySelector(".game-board");
-
-// // Getting all of the nine buttons on the game board
-// let allGameBtn = document.querySelectorAll(".all-btn");
-
-// // Removing the welcome section and displaying the select player section
-// playBtn.addEventListener("click", () => {
-//   welcomeSec.style.display = "none";
-//   selectPlayerSec.style.display = "flex";
-// });
-
-// // Removing the select player number section and displaying the playing-as section
-// onePlayer.addEventListener("click", () => {
-//   selectPlayerSec.style.display = "none";
-//   playingAs.style.display = "flex";
-// });
-
-// twoPlayers.addEventListener("click", () => {
-//   selectPlayerSec.style.display = "none";
-//   playingAs.style.display = "flex";
-// });
-
-// // Function to start the game with the selected player
-// function startGame(player) {
-//   playingAs.style.display = "none";
-//   gameBoard.style.display = "flex";
-//   let playerIdentity = player.value;
-//   for (let btn of allGameBtn) {
-//     btn.innerText = ""; // Clear any existing text
-//     btn.addEventListener("click", () => {
-//       if (btn.innerText === "") { // Prevent overriding existing move
-//         btn.innerText = playerIdentity;
-//       }
-//     });
-//   }
-// }
-
-// // Removing the play as X or O section and displaying the game board section
-// playerX.addEventListener("click", () => startGame(playerX));
-// playerO.addEventListener("click", () => startGame(playerO));
 
 
