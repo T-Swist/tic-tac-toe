@@ -1,83 +1,204 @@
-//gettting elements from the html
+// Getting elements from the HTML
 let playBtn = document.getElementById("playBtn");
 let selectPlayerSec = document.querySelector(".seclet-player");
 let welcomeSec = document.querySelector(".welcome-sec");
 let onePlayer = document.getElementById("onePlayer");
 let twoPlayers = document.getElementById("twoPlayers");
-let playingAs = document.querySelector(".playing-as")
+let playingAs = document.querySelector(".playing-as");
 let playerX = document.getElementById("playerX");
-let PlayerO = document.getElementById("PlayerO");
-let gamneBoard = document.querySelector(".game-board");
+let playerO = document.getElementById("PlayerO");
+let gameBoard = document.querySelector(".game-board");
+let restartGameBtn = document.getElementById("restartGameBtn");
+let player1Score = document.getElementById("player1Score");
+let player2Score = document.getElementById("player2Score");
 
-//Getting the all of the nine btn on the game board
+// Getting all of the nine buttons on the game board
 let allGameBtn = document.querySelectorAll(".all-btn");
 
-// for (let index = 0; index < allGameBtn.length; index++) {
-//   let currentBtn = allGameBtn[index];
-//   currentBtn.addEventListener("click", (e) => {
-//     // e.target.innerHTML = "Hey";
-//     e.target.innerText = "h";
-//   })
+// Game state
+let currentPlayer;
+let isOnePlayer;
+let gameActive = true;
+let gameState = ["", "", "", "", "", "", "", "", ""];
+const winningConditions = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6]
+];
+
+// Removing the welcome section and displaying the select player section
+playBtn.addEventListener("click", () => {
+  welcomeSec.style.display = "none";
+  selectPlayerSec.style.display = "flex";
+});
+
+// Removing the select player number section and displaying the playing-as section
+onePlayer.addEventListener("click", () => {
+  isOnePlayer = true;
+  selectPlayerSec.style.display = "none";
+  playingAs.style.display = "flex";
+});
+
+twoPlayers.addEventListener("click", () => {
+  isOnePlayer = false;
+  selectPlayerSec.style.display = "none";
+  playingAs.style.display = "flex";
+});
+
+// Function to start the game with the selected player
+function startGame(player) {
+  currentPlayer = player.value;
+  playingAs.style.display = "none";
+  gameBoard.style.display = "flex";
+  gameState = ["", "", "", "", "", "", "", "", ""];
+  gameActive = true;
+  for (let btn of allGameBtn) {
+    btn.innerText = ""; // Clear any existing text
+    btn.addEventListener("click", handlePlayerMove);
+  }
+}
+
+// Removing the play as X or O section and displaying the game board section
+playerX.addEventListener("click", () => startGame(playerX));
+playerO.addEventListener("click", () => startGame(playerO));
+
+// Handle player's move
+function handlePlayerMove(event) {
+  const clickedBtn = event.target;
+  const clickedBtnIndex = Array.from(allGameBtn).indexOf(clickedBtn);
+
+  if (gameState[clickedBtnIndex] !== "" || !gameActive) {
+    return;
+  }
+
+  gameState[clickedBtnIndex] = currentPlayer;
+  clickedBtn.innerText = currentPlayer;
+
+  if (checkWin()) {
+    gameActive = false;
+    updateScore();
+    return;
+  }
+
+  if (!gameState.includes("")) {
+    gameActive = false; // Draw condition
+    return;
+  }
+
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+
+  if (isOnePlayer && gameActive) {
+    handleComputerMove();
+  }
+}
+
+// Handle computer's move for one player mode
+function handleComputerMove() {
+  let availableIndexes = gameState
+    .map((val, index) => (val === "" ? index : null))
+    .filter((val) => val !== null);
+  let randomIndex = availableIndexes[Math.floor(Math.random() * availableIndexes.length)];
+  gameState[randomIndex] = currentPlayer;
+  allGameBtn[randomIndex].innerText = currentPlayer;
+
+  if (checkWin()) {
+    gameActive = false;
+    updateScore();
+    return;
+  }
+
+  if (!gameState.includes("")) {
+    gameActive = false; // Draw condition
+    return;
+  }
+
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+}
+
+// Check for win condition
+function checkWin() {
+  for (let condition of winningConditions) {
+    const [a, b, c] = condition;
+    if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// Update score
+function updateScore() {
+  if (currentPlayer === "X") {
+    player1Score.innerText = parseInt(player1Score.innerText) + 1;
+  } else {
+    player2Score.innerText = parseInt(player2Score.innerText) + 1;
+  }
+}
+
+// Restart game button
+restartGameBtn.addEventListener("click", () => {
+  gameActive = true;
+  gameState = ["", "", "", "", "", "", "", "", ""];
+  for (let btn of allGameBtn) {
+    btn.innerText = ""; // Clear any existing text
+  }
+  currentPlayer = currentPlayer === "X" ? "O" : "X"; // Optional: switch starting player
+});
+
+
+// // Getting elements from the HTML
+// let playBtn = document.getElementById("playBtn");
+// let selectPlayerSec = document.querySelector(".seclet-player");
+// let welcomeSec = document.querySelector(".welcome-sec");
+// let onePlayer = document.getElementById("onePlayer");
+// let twoPlayers = document.getElementById("twoPlayers");
+// let playingAs = document.querySelector(".playing-as");
+// let playerX = document.getElementById("playerX");
+// let playerO = document.getElementById("PlayerO");
+// let gameBoard = document.querySelector(".game-board");
+
+// // Getting all of the nine buttons on the game board
+// let allGameBtn = document.querySelectorAll(".all-btn");
+
+// // Removing the welcome section and displaying the select player section
+// playBtn.addEventListener("click", () => {
+//   welcomeSec.style.display = "none";
+//   selectPlayerSec.style.display = "flex";
+// });
+
+// // Removing the select player number section and displaying the playing-as section
+// onePlayer.addEventListener("click", () => {
+//   selectPlayerSec.style.display = "none";
+//   playingAs.style.display = "flex";
+// });
+
+// twoPlayers.addEventListener("click", () => {
+//   selectPlayerSec.style.display = "none";
+//   playingAs.style.display = "flex";
+// });
+
+// // Function to start the game with the selected player
+// function startGame(player) {
+//   playingAs.style.display = "none";
+//   gameBoard.style.display = "flex";
+//   let playerIdentity = player.value;
+//   for (let btn of allGameBtn) {
+//     btn.innerText = ""; // Clear any existing text
+//     btn.addEventListener("click", () => {
+//       if (btn.innerText === "") { // Prevent overriding existing move
+//         btn.innerText = playerIdentity;
+//       }
+//     });
+//   }
 // }
 
-let btn1 = document.getElementById("1");
-let btn2 = document.getElementById("2");
-let btn3 = document.getElementById("3");
-let btn4 = document.getElementById("4");
-let btn5 = document.getElementById("5");
-let btn6 = document.getElementById("6");
-let btn7 = document.getElementById("7");
-let btn8 = document.getElementById("8");
-let btn9 = document.getElementById("9");
-
-//Removing the welcome section and displaying the second section
-playBtn.addEventListener("click", (e) => {
-  welcomeSec.style.setProperty("display", "none");
-  selectPlayerSec.style.removeProperty("display", "none");
-})
-
-
-//Removing the select player number section and displaying the third section
-onePlayer.addEventListener("click", (e) => {
-  selectPlayerSec.style.setProperty("display", "none");
-  playingAs.style.removeProperty("display", "none");
-})
-
-//Removing the select player number section and displaying the third section
-twoPlayers.addEventListener("click", (e) => {
-  selectPlayerSec.style.setProperty("display", "none");
-  playingAs.style.removeProperty("display", "none");
-})
-
-
-//Removing the play as x or o section and displaying the game board section
-playerX.addEventListener("click", (e) => {
-  playingAs.style.setProperty("display", "none");
-  gamneBoard.style.removeProperty("display", "none");
-  let playIdentityX = (playerX.value);
-  for (let index = 0; index < allGameBtn.length; index++) {
-    let currentBtn = allGameBtn[index];
-    currentBtn.addEventListener("click", (e) => {
-      // e.target.innerHTML = "Hey";
-      e.target.innerText = playIdentityX;
-    })
-  }
-  
-})
-
-//Removing the play as x or o section and displaying the game board section
-PlayerO.addEventListener("click", (e) => {
-  playingAs.style.setProperty("display", "none");
-  gamneBoard.style.removeProperty("display", "none");
-  let playIdentityO = (PlayerO.value);
-  for (let index = 0; index < allGameBtn.length; index++) {
-    let currentBtn = allGameBtn[index];
-    currentBtn.addEventListener("click", (e) => {
-      // e.target.innerHTML = "Hey";
-      e.target.innerHTML = playIdentityO;
-    })
-  }
-
-})
+// // Removing the play as X or O section and displaying the game board section
+// playerX.addEventListener("click", () => startGame(playerX));
+// playerO.addEventListener("click", () => startGame(playerO));
 
 
